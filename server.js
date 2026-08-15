@@ -27,7 +27,7 @@ if (count.total === 0) {
 
 // 4. Rota do site: Consulta a BD e devolve o HTML
 app.get('/', (req, res) => {
-  const produtos = db.prepare('SELECT * FROM produtos').all();x
+  const produtos = db.prepare('SELECT * FROM produtos').all();
 
   let listaHTML = '';
   produtos.forEach(p => {
