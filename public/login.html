@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Meu Site</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Botão de Voltar para a Página Inicial -->
+    <a href="index.html" class="btn-voltar">← Voltar ao Início</a>
+
+    <main class="login-container">
+        <h2>Entrar na sua Conta</h2>
+        <p class="subtitle">Insira os seus dados para aceder.</p>
+
+        <form onsubmit="fazerLogin(event)">
+            <div class="input-group">
+                <label for="email">E-mail</label>
+                <input type="email" id="email" placeholder="seu@email.com" required>
+            </div>
+
+            <div class="input-group">
+                <label for="senha">Senha</label>
+                <input type="password" id="senha" placeholder="••••••••" required>
+            </div>
+
+            <div class="form-actions">
+                <a href="#" class="esqueci-senha">Esqueceu a senha?</a>
+            </div>
+
+            <button type="submit" class="btn-entrar">Entrar</button>
+        </form>
+    </main>
+
+    <script>
+        function fazerLogin(event) {
+            event.preventDefault(); // Impede a página de recarregar
+            
+            const email = document.getElementById('email').value;
+            const senha = document.getElementById('senha').value;
+
+            // Simulação de login
+            alert(`Tentativa de login com:\nE-mail: ${email}`);
+        }
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,64 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9;
+    color: #333;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start; /* Mudamos aqui para controlar as alturas manualmente */
+    height: 100vh;
+    box-sizing: border-box;
+    padding-top: 40px; 
+}
+
+header h1 {
+    color: #4A90E2;
+    margin-top: 0px;
+}
+
+main {
+    margin-top: 1000px; /* Altere este número para subir ou abaixar mais o bloco */
+    margin-bottom: 100px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+}
+
+button {
+    background-color: #4A90E2;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.btn-signin {
+    /* --- Estilo Visual do Botão (copie do seu outro botão se preferir) --- */
+    background-color: #4A90E2; /* Cor de fundo (azul) */
+    color: white;              /* Cor do texto (branco) */
+    border: none;              /* Sem bordas */
+    padding: 10px 20px;       /* Espaçamento interno */
+    border-radius: 5px;       /* Cantos arredondados */
+    font-size: 16px;          /* Tamanho da fonte */
+    cursor: pointer;          /* Cursor de mão ao passar o mouse */
+    
+    /* --- Essencial para transformar o link em botão --- */
+    display: inline-block;    /* Permite que o link tenha largura/altura e padding corretos */
+    text-decoration: none;    /* Remove o sublinhado azul padrão do link */
+    
+    /* --- Posicionamento (mantenha o que já tínhamos) --- */
+    position: absolute;
+    top: 20px;
+    right: 20px;
+}
+
+/* Adiciona um efeito ao passar o mouse */
+.btn-signin:hover {
+    background-color: #357ABD; /* Azul mais escuro no hover */
+    color: white;             /* Garante que o texto continue branco no hover */
+}
