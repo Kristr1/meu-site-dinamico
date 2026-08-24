@@ -66,8 +66,17 @@ button:hover,
 }
 
 .btn-voltar {
-    margin: 0 0 20px;
+    margin: 0;
     width: fit-content;
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    z-index: 2;
+    transform: translateX(-50%);
+}
+
+.btn-voltar:hover {
+    transform: translate(-50%, -1px);
 }
 
 .btn-entrar {
