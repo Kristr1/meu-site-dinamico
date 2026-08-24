@@ -37,13 +37,28 @@ body {
     border-radius: 10px;
     background-color: #38bd1b;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
-    color: white;
+    box-sizing: border-box;
+    padding: 30px;
+    color: black;
 }
 
 .login-image h2 {
     margin: 0;
+}
+
+.login-image form {
+    width: 100%;
+}
+
+.login-image * {
+    color: black;
+}
+
+.login-image .btn-entrar:hover {
+    color: black;
 }
 
 main {
