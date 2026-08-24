@@ -38,7 +38,7 @@ main {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 15px;
+    gap: 1000px;
     padding: 40px 20px;      /* Substitui o margin-top de 1000px por um espaçamento limpo */
 }
 
