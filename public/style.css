@@ -38,8 +38,9 @@ main {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 1000px;
-    padding: 60px 20px;      /* Substitui o margin-top de 1000px por um espaçamento limpo */
+    flex: 1; /* Garante que o main continua empurrando o footer até ao fundo */
+    margin-top: 1000px; /* <--- Ajuste este valor conforme a distância que pretende */
+    padding: 60px 20px;
 }
 
 footer {
