@@ -1,0 +1,104 @@
+* {
+	box-sizing: border-box;
+}
+
+body {
+	font-family: Arial, sans-serif;
+	background-color: #f4f4f9;
+	color: #e71616;
+	margin: 0;
+	padding: 0;
+	display: flex;
+	flex-direction: column;
+	min-height: 100vh;
+}
+
+/* Estrutura visual exclusiva da página de login */
+.pagina-login {
+	align-items: stretch;
+}
+
+.pagina-login .btn-voltar,
+.pagina-login .btn-entrar {
+	background-color: #4A90E2;
+	color: white;
+	border: none;
+	padding: 10px 20px;
+	font-size: 16px;
+	cursor: pointer;
+	border-radius: 5px;
+	display: inline-block;
+	text-decoration: none;
+	text-align: center;
+	font-family: Arial, sans-serif;
+	line-height: 1.4;
+	transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.pagina-login .btn-voltar {
+	align-self: flex-start;
+	margin: 20px 0 0 20px;
+	width: fit-content;
+}
+
+.pagina-login .login-container {
+	align-self: center;
+	width: min(100% - 40px, 400px);
+	box-sizing: border-box;
+	margin: 60px auto;
+	padding: 30px;
+	background-color: white;
+	border-radius: 5px;
+}
+
+.pagina-login .login-container h2 {
+	margin-top: 0;
+	color: #4A90E2;
+}
+
+.pagina-login .subtitle {
+	color: #555;
+}
+
+.pagina-login .input-group {
+	margin-bottom: 20px;
+}
+
+.pagina-login .input-group label {
+	display: block;
+	margin-bottom: 8px;
+	color: #333;
+}
+
+.pagina-login .input-group input {
+	width: 100%;
+	box-sizing: border-box;
+	padding: 10px;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	font-size: 16px;
+}
+
+.pagina-login .form-actions {
+	text-align: right;
+}
+
+.pagina-login .esqueci-senha {
+	color: #4A90E2;
+	text-decoration: none;
+}
+
+.pagina-login .esqueci-senha:hover {
+	text-decoration: underline;
+}
+
+.pagina-login .btn-entrar {
+	margin-top: 15px;
+}
+
+.pagina-login .btn-entrar:hover,
+.pagina-login .btn-voltar:hover {
+	background-color: #357ABD;
+	color: white;
+	transform: translateY(-1px);
+}

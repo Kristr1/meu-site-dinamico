@@ -1,0 +1,82 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9;
+    color: #e71616;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    min-height: 100vh;
+    box-sizing: border-box;
+}
+
+header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 30px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+header h1 {
+    color: #4A90E2;
+    margin: 0;
+    text-align: left;
+}
+
+.hero-banner {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    display: block;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
+    margin-top: 1000px;
+    padding: 60px 20px;
+}
+
+footer {
+    background-color: #4A90E2;
+    color: white;
+    text-align: center;
+    padding: 20px 0;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+button,
+.btn-signin {
+    background-color: #4A90E2;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    display: inline-block;
+    text-decoration: none;
+    text-align: center;
+    font-family: Arial, sans-serif;
+    line-height: 1.4;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+button:hover,
+.btn-signin:hover {
+    background-color: #357ABD;
+    color: white;
+    transform: translateY(-1px);
+}
+
+.btn-signin {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+}
