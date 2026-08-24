@@ -68,6 +68,8 @@ button:hover,
 .btn-voltar {
     margin: 20px 0 0 20px;
     width: fit-content;
+    position: relative;
+    z-index: 2;
 }
 
 .btn-entrar {
