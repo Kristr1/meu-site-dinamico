@@ -6,7 +6,7 @@ body {
     padding: 0;
     display: flex;
     flex-direction: column;
-    align-items: stretch; /* Permite que os elementos ocupem a largura total */
+    align-items: stretch;
     min-height: 100vh;
     box-sizing: border-box;
 }
@@ -15,7 +15,7 @@ header {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 20px 30px; /* Dá espaço nas bordas para o título e o botão */
+    padding: 20px 30px;
     width: 100%;
     box-sizing: border-box;
 }
@@ -26,11 +26,10 @@ header h1 {
     text-align: left;
 }
 
-/* Imagem de ponta a ponta abaixo do título */
 .hero-banner {
-    width: 100%;             /* Vai da borda esquerda até à direita */
-    height: 180px;           /* Controla a altura para não ficar muito grande */
-    object-fit: cover;       /* Corta/ajusta a imagem sem a distorcer */
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
     display: block;
 }
 
@@ -38,8 +37,8 @@ main {
     display: flex;
     flex-direction: column;
     align-items: center;
-    flex: 1; /* Garante que o main continua empurrando o footer até ao fundo */
-    margin-top: 1000px; /* <--- Ajuste este valor conforme a distância que pretende */
+    flex: 1;
+    margin-top: 1000px;
     padding: 60px 20px;
 }
 
@@ -52,7 +51,10 @@ footer {
     box-sizing: border-box;
 }
 
-button {
+button,
+.btn-signin,
+.btn-entrar,
+.btn-voltar {
     background-color: #4A90E2;
     color: white;
     border: none;
@@ -60,24 +62,35 @@ button {
     font-size: 16px;
     cursor: pointer;
     border-radius: 5px;
+    display: inline-block;
+    text-decoration: none;
+    text-align: center;
+    font-family: Arial, sans-serif;
+    line-height: 1.4;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+button:hover,
+.btn-signin:hover,
+.btn-entrar:hover,
+.btn-voltar:hover {
+    background-color: #357ABD;
+    color: white;
+    transform: translateY(-1px);
 }
 
 .btn-signin {
-    background-color: #4A90E2;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    font-size: 16px;
-    cursor: pointer;
-    display: inline-block;
-    text-decoration: none;
     position: absolute;
     top: 20px;
     right: 30px;
 }
 
-.btn-signin:hover {
-    background-color: #357ABD;
-    color: white;
+.btn-voltar {
+    margin: 20px 0 0 20px;
+    width: fit-content;
+}
+
+.btn-entrar {
+    width: 100%;
+    margin-top: 15px;
 }
