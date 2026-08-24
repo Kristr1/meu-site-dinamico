@@ -28,6 +28,13 @@ body {
     right: 0;
 }
 
+.login-image {
+    position: fixed;
+    top: 100;
+    right: 100;
+    background-color: #38bd1b;
+}
+
 main {
     display: flex;
     flex-direction: column;
