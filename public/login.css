@@ -31,9 +31,10 @@ body {
 .login-image {
     position: fixed;
     top: 100px;
-    right: 200px;
+    right: 300px;
     width: 30%;
     height: 75%;
+    border-radius: 10px;
     background-color: #38bd1b;
 }
 
