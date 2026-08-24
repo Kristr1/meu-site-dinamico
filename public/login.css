@@ -17,7 +17,7 @@ body {
     z-index: 0;
     width: clamp(100px, 16vw, 240px);
     height: 100vh;
-    object-fit: cover;
+    background-color: #808080;
 }
 
 .login-side-image-left {

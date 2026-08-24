@@ -34,7 +34,7 @@ header h1 {
 .hero-banner {
     width: 100%;
     height: 180px;
-    object-fit: cover;
+    background-color: #808080;
     display: block;
 }
 
