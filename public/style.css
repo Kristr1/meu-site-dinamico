@@ -42,6 +42,15 @@ main {
     padding: 60px 20px;      /* Substitui o margin-top de 1000px por um espaçamento limpo */
 }
 
+footer {
+    background-color: #4A90E2;
+    color: white;
+    text-align: center;
+    padding: 20px 0;
+    width: 100%;
+    box-sizing: border-box;
+}
+
 button {
     background-color: #4A90E2;
     color: white;
