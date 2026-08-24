@@ -4,6 +4,7 @@ body {
     color: #e71616;
     margin: 0;
     padding: 0;
+    gap: 1000px;
     display: flex;
     flex-direction: column;
     align-items: stretch; /* Permite que os elementos ocupem a largura total */
