@@ -70,13 +70,8 @@ button:hover,
     width: fit-content;
     position: fixed;
     top: 20px;
-    left: 50%;
+    left: calc(clamp(100px, 16vw, 240px) + 20px);
     z-index: 2;
-    transform: translateX(-50%);
-}
-
-.btn-voltar:hover {
-    transform: translate(-50%, -1px);
 }
 
 .btn-entrar {
