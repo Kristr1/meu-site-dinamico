@@ -11,6 +11,23 @@ body {
     box-sizing: border-box;
 }
 
+.login-side-image {
+    position: fixed;
+    top: 0;
+    z-index: 0;
+    width: clamp(100px, 16vw, 240px);
+    height: 100vh;
+    object-fit: cover;
+}
+
+.login-side-image-left {
+    left: 0;
+}
+
+.login-side-image-right {
+    right: 0;
+}
+
 main {
     display: flex;
     flex-direction: column;
@@ -18,6 +35,8 @@ main {
     flex: 1;
     margin-top: 1000px;
     padding: 60px 20px;
+    position: relative;
+    z-index: 1;
 }
 
 button,
