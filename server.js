@@ -58,7 +58,18 @@ app.post('/api/registar', async (req, res) => {
   }
 });
 
-// 2. Servir os ficheiros estáticos
+// 2. Rota de Consulta (Para ver os utilizadores gravados na Base de Dados)
+app.get('/api/utilizadores', async (req, res) => {
+  try {
+    const resultado = await pool.query('SELECT id, email, criado_em FROM utilizadores');
+    res.json(resultado.rows);
+  } catch (erro) {
+    console.error(erro);
+    res.status(500).json({ mensagem: 'Erro ao consultar a base de dados.' });
+  }
+});
+
+// 3. Servir os ficheiros estáticos
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Servir a página de login quando acederem a /login
