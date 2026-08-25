@@ -1,66 +1,64 @@
 const express = require('express');
 const path = require('path');
 const bcrypt = require('bcryptjs');
+const { Pool } = require('pg');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Middleware para ler dados enviados pelo Front-end em JSON
 app.use(express.json());
 
-// Base de dados temporária em memória (Substituir por PostgreSQL/MongoDB em produção)
-const utilizadoresDB = [];
-
-// 1. Redirecionamento de index.html para a raiz /
-app.get('/index.html', (req, res) => {
-  res.redirect(301, '/');
+// Ligação à Base de Dados (usa a variável de ambiente DATABASE_URL em produção)
+const pool = new Pool({
+  connectionString: process.env.DATABASE_URL,
+  ssl: process.env.DATABASE_URL ? { rejectUnauthorized: false } : false
 });
 
-// 2. Rota para carregar o HTML de login
-app.get('/login', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'login.html'));
-});
+// Cria a tabela de utilizadores na base de dados se ela ainda não existir
+async function criarTabela() {
+  await pool.query(`
+    CREATE TABLE IF NOT EXISTS utilizadores (
+      id SERIAL PRIMARY KEY,
+      email VARCHAR(255) UNIQUE NOT NULL,
+      senha_hash VARCHAR(255) NOT NULL,
+      criado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    );
+  `);
+}
+criarTabela().catch(console.error);
 
-app.get('/login.html', (req, res) => {
-  res.redirect(301, '/login');
-});
-
-// 3. ROTA DE API: Registar / Guardar Conta de Forma Segura
+// 1. Rota de Registo Segura (Gravação permanente na Base de Dados)
 app.post('/api/registar', async (req, res) => {
   const { email, senha } = req.body;
 
-  // Validação no Back-end
   if (!email || !senha) {
     return res.status(400).json({ mensagem: 'Preencha todos os campos.' });
   }
 
-  // Verifica se o utilizador já existe
-  const jaExiste = utilizadoresDB.find(u => u.email === email);
-  if (jaExiste) {
-    return res.status(400).json({ mensagem: 'Este e-mail já está registado.' });
-  }
-
   try {
-    // Hashing da palavra-passe (10 rounds de salt)
+    // Verificar se o e-mail já existe na base de dados
+    const utilizadorExiste = await pool.query('SELECT * FROM utilizadores WHERE email = $1', [email]);
+    if (utilizadorExiste.rows.length > 0) {
+      return res.status(400).json({ mensagem: 'Este e-mail já está registado.' });
+    }
+
+    // Hashing da palavra-passe
     const senhaHash = await bcrypt.hash(senha, 10);
 
-    // Guarda APENAS o hash na base de dados, NUNCA a senha real
-    const novoUtilizador = {
-      id: Date.now(),
-      email: email,
-      senhaHash: senhaHash
-    };
+    // Inserir na tabela do PostgreSQL
+    await pool.query(
+      'INSERT INTO utilizadores (email, senha_hash) VALUES ($1, $2)',
+      [email, senhaHash]
+    );
 
-    utilizadoresDB.push(novoUtilizador);
-    console.log('Utilizador guardado com sucesso:', { id: novoUtilizador.id, email: novoUtilizador.email, hash: novoUtilizador.senhaHash });
-
-    res.status(201).json({ mensagem: 'Conta criada com sucesso!' });
+    res.status(201).json({ mensagem: 'Conta criada e guardada com sucesso!' });
   } catch (erro) {
-    res.status(500).json({ mensagem: 'Erro interno ao guardar a conta.' });
+    console.error(erro);
+    res.status(500).json({ mensagem: 'Erro ao guardar na base de dados.' });
   }
 });
 
-// 4. Servir os ficheiros estáticos (HTML, CSS, JS)
+// 2. Servir os ficheiros estáticos
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.listen(PORT, () => {
