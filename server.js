@@ -61,6 +61,11 @@ app.post('/api/registar', async (req, res) => {
 // 2. Servir os ficheiros estáticos
 app.use(express.static(path.join(__dirname, 'public')));
 
+// Servir a página de login quando acederem a /login
+app.get('/login', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'login.html'));
+});
+
 app.listen(PORT, () => {
   console.log(`Servidor a correr na porta ${PORT}`);
 });
