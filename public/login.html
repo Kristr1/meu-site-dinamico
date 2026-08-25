@@ -41,15 +41,34 @@
     <div class="login-side-image login-side-image-right" aria-hidden="true"></div>
 
     <script>
-        function fazerLogin(event) {
-            event.preventDefault(); // Impede a página de recarregar
-            
-            const email = document.getElementById('email').value;
-            const senha = document.getElementById('senha').value;
+    async function fazerLogin(event) {
+        event.preventDefault(); // Impede o recarregamento da página
 
-            // Simulação de login
-            alert(`Tentativa de login com:\nE-mail: ${email}`);
+        const email = document.getElementById('email').value;
+        const senha = document.getElementById('senha').value;
+
+        try {
+        // Envia os dados com encriptação HTTPS para o Back-end
+        const resposta = await fetch('/api/registar', {
+            method: 'POST',
+            headers: {
+            'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ email, senha })
+        });
+
+        const resultado = await resposta.json();
+
+        if (resposta.ok) {
+            alert(resultado.mensagem);
+            window.location.href = '/'; // Redireciona para a página inicial
+        } else {
+            alert('Erro: ' + resultado.mensagem);
         }
+        } catch (erro) {
+        alert('Erro ao ligar ao servidor.');
+        }
+    }
     </script>
 
 </body>
