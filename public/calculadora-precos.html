@@ -1,10 +1,68 @@
 <!DOCTYPE html>
 <html lang="pt-PT">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calculadora de preços - Goodleans</title>
+  <meta charset="UTF-8">
+  <title>Comparador de Produtos - Goodleans</title>
+  <style>
+    body { font-family: sans-serif; padding: 20px; background: #f4f4f9; }
+    table { width: 100%; border-collapse: collapse; background: white; border-radius: 8px; overflow: hidden; }
+    th, td { padding: 12px 15px; text-align: left; border-bottom: 1px solid #ddd; }
+    th { background-color: #2c3e50; color: white; }
+    tr:hover { background-color: #f1f1f1; }
+    .badge-promo { background: #e74c3c; color: white; padding: 2px 6px; border-radius: 4px; font-size: 0.8em; }
+  </style>
 </head>
 <body>
+
+  <h2>Tabela Comparativa de Produtos</h2>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Produto</th>
+        <th>Marca</th>
+        <th>Loja</th>
+        <th>Preço</th>
+        <th>Calorias (100g)</th>
+        <th>Proteínas</th>
+        <th>Hidratos</th>
+        <th>Gorduras</th>
+      </tr>
+    </thead>
+    <tbody id="corpo-tabela">
+      <!-- Linhas inseridas via JavaScript -->
+    </tbody>
+  </table>
+
+  <script>
+    window.addEventListener('DOMContentLoaded', async () => {
+      try {
+        const resposta = await fetch('/api/tabela-produtos');
+        const produtos = await resposta.json();
+        const tbody = document.getElementById('corpo-tabela');
+
+        tbody.innerHTML = '';
+
+        produtos.forEach(item => {
+          const promo = item.em_promocao ? '<span class="badge-promo">PROMO</span>' : '';
+          
+          tbody.innerHTML += `
+            <tr>
+              <td><strong>${item.produto_nome}</strong></td>
+              <td>${item.marca || '-'}</td>
+              <td>${item.loja_nome}</td>
+              <td>€${item.preco} ${promo}</td>
+              <td>${item.calorias_100g ? item.calorias_100g + ' kcal' : '-'}</td>
+              <td>${item.proteinas_100g ? item.proteinas_100g + 'g' : '-'}</td>
+              <td>${item.hidratos_100g ? item.hidratos_100g + 'g' : '-'}</td>
+              <td>${item.gorduras_100g ? item.gorduras_100g + 'g' : '-'}</td>
+            </tr>
+          `;
+        });
+      } catch (erro) {
+        console.error('Erro ao carregar a tabela:', erro);
+      }
+    });
+  </script>
 </body>
 </html>

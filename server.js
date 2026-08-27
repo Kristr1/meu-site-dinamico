@@ -165,3 +165,69 @@ app.get(['/login', '/entrar'], (req, res) => {
 app.listen(PORT, () => {
   console.log(`Servidor a correr na porta ${PORT}`);
 });
+
+async function criarTabelasProdutos() {
+  // 1. Tabela base dos produtos e dados nutricionais
+  await pool.query(`
+    CREATE TABLE IF NOT EXISTS produtos (
+      id SERIAL PRIMARY KEY,
+      nome VARCHAR(255) NOT NULL,
+      marca VARCHAR(100),
+      categoria VARCHAR(100),
+      calorias_100g INT,
+      proteinas_100g DECIMAL(4,1),
+      hidratos_100g DECIMAL(4,1),
+      gorduras_100g DECIMAL(4,1),
+      imagem_url TEXT
+    );
+  `);
+
+  // 2. Tabela de lojas
+  await pool.query(`
+    CREATE TABLE IF NOT EXISTS lojas (
+      id SERIAL PRIMARY KEY,
+      nome VARCHAR(100) NOT NULL -- Ex: Continente, Pingo Doce, Auchan
+    );
+  `);
+
+  // 3. Tabela de ligação: Preço de cada produto em cada loja
+  await pool.query(`
+    CREATE TABLE IF NOT EXISTS precos_lojas (
+      id SERIAL PRIMARY KEY,
+      produto_id INT REFERENCES produtos(id) ON DELETE CASCADE,
+      loja_id INT REFERENCES lojas(id) ON DELETE CASCADE,
+      preco DECIMAL(6,2) NOT NULL,
+      em_promocao BOOLEAN DEFAULT FALSE,
+      atualizado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    );
+  `);
+}
+criarTabelasProdutos().catch(console.error);
+
+app.get('/api/tabela-produtos', async (req, res) => {
+  try {
+    const query = `
+      SELECT 
+        p.id,
+        p.nome AS produto_nome,
+        p.marca,
+        p.categoria,
+        p.calorias_100g,
+        p.proteinas_100g,
+        p.hidratos_100g,
+        p.gorduras_100g,
+        l.nome AS loja_nome,
+        pl.preco,
+        pl.em_promocao
+      FROM precos_lojas pl
+      JOIN produtos p ON pl.produto_id = p.id
+      JOIN lojas l ON pl.loja_id = l.id
+      ORDER BY p.nome ASC;
+    `;
+    const resultado = await pool.query(query);
+    res.json(resultado.rows);
+  } catch (erro) {
+    console.error(erro);
+    res.status(500).json({ mensagem: 'Erro ao obter dados dos produtos.' });
+  }
+});
