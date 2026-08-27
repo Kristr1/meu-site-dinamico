@@ -58,6 +58,37 @@ app.post('/api/registar', async (req, res) => {
   }
 });
 
+// Rota de entrada: valida as credenciais sem expor a palavra-passe.
+app.post('/api/entrar', async (req, res) => {
+  const { email, senha } = req.body;
+
+  if (!email || !senha) {
+    return res.status(400).json({ mensagem: 'Preencha todos os campos.' });
+  }
+
+  try {
+    const resultado = await pool.query(
+      'SELECT senha_hash FROM utilizadores WHERE email = $1',
+      [email]
+    );
+
+    if (resultado.rows.length === 0) {
+      return res.status(401).json({ mensagem: 'E-mail ou palavra-passe inválidos.' });
+    }
+
+    const senhaValida = await bcrypt.compare(senha, resultado.rows[0].senha_hash);
+
+    if (!senhaValida) {
+      return res.status(401).json({ mensagem: 'E-mail ou palavra-passe inválidos.' });
+    }
+
+    res.json({ mensagem: 'Entrada efetuada com sucesso!' });
+  } catch (erro) {
+    console.error(erro);
+    res.status(500).json({ mensagem: 'Erro ao efetuar a entrada.' });
+  }
+});
+
 // 2. Rota de Consulta (Para ver os utilizadores gravados na Base de Dados)
 app.get('/api/utilizadores', async (req, res) => {
   try {
@@ -72,8 +103,12 @@ app.get('/api/utilizadores', async (req, res) => {
 // 3. Servir os ficheiros estáticos
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Servir a página de login quando acederem a /login
-app.get('/login', (req, res) => {
+app.get('/create-account', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'create-account.html'));
+});
+
+// /entrar mantém compatibilidade com links antigos para a página de login.
+app.get(['/login', '/entrar'], (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'login.html'));
 });
 

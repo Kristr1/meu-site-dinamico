@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - Meu Site</title>
+    <title>Criar conta - Meu Site</title>
     <link rel="stylesheet" href="create-account.css">
 </head>
 <body class="pagina-login">
@@ -11,10 +11,10 @@
     <div class="login-side-image login-side-image-left" aria-hidden="true"></div>
 
     <div class="login-image">
-        <h2>Entrar na sua Conta</h2>
-        <p class="subtitle">Insira os seus dados para entrar.</p>
+        <h2>Crie a sua conta</h2>
+        <p class="subtitle">Insira os seus dados para criar a sua conta.</p>
 
-        <form onsubmit="fazerLogin(event)">
+        <form onsubmit="criarConta(event)">
             <div class="input-group">
                 <label for="email">E-mail</label>
                 <input type="email" id="email" placeholder="seu@email.com" required>
@@ -26,47 +26,45 @@
             </div>
 
             <div class="form-actions">
-                <a href="/create-account" class="esqueci-senha">Criar conta</a>
+                <a href="/login" class="esqueci-senha">Já tenho conta</a>
             </div>
 
-            <button type="submit" class="btn-entrar">Entrar</button>
+            <button type="submit" class="btn-entrar">Criar conta</button>
         </form>
     </div>
 
     <main class="login-container">
-        <a href="/" class="btn-voltar">← Voltar ao Início</a>
-        <p>ola</p>
+        <a href="/" class="btn-voltar">← Voltar ao início</a>
     </main>
 
     <div class="login-side-image login-side-image-right" aria-hidden="true"></div>
 
     <script>
-    async function fazerLogin(event) {
-        event.preventDefault(); // Impede o recarregamento da página
+    async function criarConta(event) {
+        event.preventDefault();
 
         const email = document.getElementById('email').value;
         const senha = document.getElementById('senha').value;
 
         try {
-        // Envia os dados com encriptação HTTPS para o Back-end
-        const resposta = await fetch('/api/entrar', {
-            method: 'POST',
-            headers: {
-            'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ email, senha })
-        });
+            const resposta = await fetch('/api/registar', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ email, senha })
+            });
 
-        const resultado = await resposta.json();
+            const resultado = await resposta.json();
 
-        if (resposta.ok) {
-            alert(resultado.mensagem);
-            window.location.href = '/';
-        } else {
-            alert('Erro: ' + resultado.mensagem);
-        }
+            if (resposta.ok) {
+                alert(resultado.mensagem);
+                window.location.href = '/login';
+            } else {
+                alert('Erro: ' + resultado.mensagem);
+            }
         } catch (erro) {
-        alert('Erro ao ligar ao servidor.');
+            alert('Erro ao ligar ao servidor.');
         }
     }
     </script>
