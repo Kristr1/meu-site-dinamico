@@ -37,7 +37,7 @@ function obterCookie(req, nome) {
   return match ? match[2] : null;
 }
 
-// ROTA DE REGISTO
+// ROTA DE REGISTO (Cria a conta e inicia sessão automaticamente)
 app.post('/api/registar', async (req, res) => {
   const { email, senha } = req.body;
 
@@ -52,9 +52,30 @@ app.post('/api/registar', async (req, res) => {
     }
 
     const senhaHash = await bcrypt.hash(senha, 10);
-    await pool.query('INSERT INTO utilizadores (email, senha_hash) VALUES ($1, $2)', [email, senhaHash]);
+    
+    // Inserir e retornar o ID e Email do novo utilizador (RETURNING id, email)
+    const novoUtilizador = await pool.query(
+      'INSERT INTO utilizadores (email, senha_hash) VALUES ($1, $2) RETURNING id, email',
+      [email, senhaHash]
+    );
 
-    res.status(201).json({ mensagem: 'Conta criada com sucesso!' });
+    const utilizador = novoUtilizador.rows[0];
+
+    // Gerar o JWT para o novo utilizador
+    const token = jwt.sign(
+      { id: utilizador.id, email: utilizador.email },
+      JWT_SECRET,
+      { expiresIn: '7d' }
+    );
+
+    // Enviar o Token no Cookie HTTP-Only
+    res.cookie('token', token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      maxAge: 7 * 24 * 60 * 60 * 1000 // 7 dias
+    });
+
+    res.status(201).json({ mensagem: 'Conta criada e sessão iniciada!' });
   } catch (erro) {
     console.error(erro);
     res.status(500).json({ mensagem: 'Erro ao guardar na base de dados.' });
