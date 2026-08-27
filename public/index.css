@@ -14,7 +14,7 @@ body {
 header {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: flex-start;
     padding: 20px 30px;
     width: 100%;
     box-sizing: border-box;
@@ -29,6 +29,20 @@ header h1 {
     color: #4A90E2;
     margin: 0;
     text-align: left;
+}
+
+.navegacao-principal {
+    margin-left: 30px;
+}
+
+.navegacao-principal a {
+    color: #4A90E2;
+    text-decoration: none;
+    font-size: 16px;
+}
+
+.navegacao-principal a:hover {
+    text-decoration: underline;
 }
 
 .hero-banner {

@@ -154,6 +154,10 @@ app.get('/create-account', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'create-account.html'));
 });
 
+app.get('/calculadora-precos', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'calculadora-precos.html'));
+});
+
 app.get(['/login', '/entrar'], (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'login.html'));
 });
