@@ -2,24 +2,36 @@
 <html lang="pt-PT">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Comparador de Produtos - Goodleans</title>
   <style>
-    body { font-family: sans-serif; padding: 20px; background: #f4f4f9; }
-    table { width: 100%; border-collapse: collapse; background: white; border-radius: 8px; overflow: hidden; }
+    * { box-sizing: border-box; }
+    body { font-family: Arial, sans-serif; margin: 0; padding: clamp(20px, 5vw, 56px); background: #f4f4f9; color: #243447; }
+    .pagina-calculadora { width: min(100%, 1280px); margin: 0 auto; }
+    h2 { margin: 0 0 24px; font-size: clamp(1.35rem, 3vw, 2rem); }
+    .tabela-wrapper { width: 100%; overflow-x: auto; border-radius: 8px; box-shadow: 0 10px 30px rgb(36 52 71 / 10%); }
+    table { width: 100%; min-width: 820px; border-collapse: collapse; background: white; }
     th, td { padding: 12px 15px; text-align: left; border-bottom: 1px solid #ddd; }
     th { background-color: #2c3e50; color: white; }
+    th { white-space: nowrap; }
     tr:hover { background-color: #f1f1f1; }
     .badge-promo { background: #e74c3c; color: white; padding: 2px 6px; border-radius: 4px; font-size: 0.8em; }
-    .btn-inicio { display: inline-block; margin-bottom: 20px; padding: 10px 20px; background: #4A90E2; color: white; border-radius: 5px; text-decoration: none; }
+    .btn-inicio { display: inline-block; margin-bottom: 24px; padding: 10px 20px; background: #4A90E2; color: white; border-radius: 5px; text-decoration: none; }
     .btn-inicio:hover { background: #357ABD; }
+    @media (max-width: 620px) {
+      body { padding: 20px 16px; }
+      th, td { padding: 10px 12px; }
+    }
   </style>
 </head>
 <body>
+<div class="pagina-calculadora">
 
   <a href="/" class="btn-inicio">Voltar ao início</a>
 
   <h2>Tabela Comparativa de Produtos</h2>
 
+  <div class="tabela-wrapper" tabindex="0" aria-label="Tabela comparativa com deslocamento horizontal">
   <table>
     <thead>
       <tr>
@@ -37,6 +49,8 @@
       <!-- Linhas inseridas via JavaScript -->
     </tbody>
   </table>
+  </div>
+</div>
 
   <script>
     window.addEventListener('DOMContentLoaded', async () => {

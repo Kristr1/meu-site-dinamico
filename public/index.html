@@ -42,9 +42,9 @@
 
                 if (dados.autenticado && areaAuth) {
                     areaAuth.innerHTML = `
-                        <div style="display: flex; align-items: center; gap: 12px;">
-                            <span style="color: white; font-weight: 500;">👋 ${dados.email}</span>
-                            <button onclick="terminarSessao()" class="btn-signin" style="background-color: #e74c3c; cursor: pointer; border: none; padding: 8px 16px; border-radius: 4px; color: white;">Sair</button>
+                        <div class="sessao-atual">
+                            <span class="sessao-email">${dados.email}</span>
+                            <button onclick="terminarSessao()" class="btn-signin btn-sair">Sair</button>
                         </div>
                     `;
                 }
