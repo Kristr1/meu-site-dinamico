@@ -1,40 +1,38 @@
 body {
     font-family: Arial, sans-serif;
     background-color: #f4f4f9;
-    color: #243447;
+    color: #e71616;
     margin: 0;
     padding: 0;
     display: flex;
     flex-direction: column;
+    align-items: stretch;
     min-height: 100vh;
     box-sizing: border-box;
-}
-
-*,
-*::before,
-*::after {
-    box-sizing: inherit;
 }
 
 header {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    gap: 24px;
-    padding: 16px clamp(16px, 5vw, 64px);
+    justify-content: flex-start;
+    padding: 20px 30px;
     width: 100%;
+    box-sizing: border-box;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 10;
     background-color: #f4f4f9;
-    border-bottom: 1px solid #dce3eb;
 }
 
 header h1 {
     color: #4A90E2;
     margin: 0;
-    font-size: clamp(1.5rem, 3vw, 2rem);
+    text-align: left;
 }
 
 .navegacao-principal {
-    margin-left: auto;
+    margin-left: 30px;
 }
 
 .navegacao-principal a {
@@ -49,7 +47,7 @@ header h1 {
 
 .hero-banner {
     width: 100%;
-    height: clamp(140px, 24vw, 260px);
+    height: 180px;
     background: linear-gradient(120deg, #65758b, #a8b4c2);
     display: block;
 }
@@ -59,22 +57,17 @@ main {
     flex-direction: column;
     align-items: center;
     flex: 1;
-    justify-content: center;
-    gap: 20px;
-    width: 100%;
-    padding: clamp(40px, 8vw, 96px) 20px;
+    margin-top: 1000px;
+    padding: 60px 20px;
 }
 
 footer {
     background-color: #4A90E2;
     color: white;
     text-align: center;
-    padding: 20px;
+    padding: 20px 0;
     width: 100%;
-}
-
-footer p {
-    margin: 0;
+    box-sizing: border-box;
 }
 
 button,
@@ -102,57 +95,29 @@ button:hover,
 }
 
 .btn-signin {
-    white-space: nowrap;
-}
-
-.sessao-atual {
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    gap: 12px;
-    min-width: 0;
-}
-
-.sessao-email {
-    color: #243447;
-    font-weight: 500;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    max-width: min(34vw, 280px);
-}
-
-.btn-sair {
-    background-color: #e74c3c;
-}
-
-.btn-sair:hover {
-    background-color: #c0392b;
+    position: absolute;
+    top: 20px;
+    right: 30px;
 }
 
 @media (max-width: 620px) {
     header {
-        align-items: flex-start;
+        position: relative;
         flex-wrap: wrap;
-        gap: 12px 16px;
+        gap: 12px;
     }
 
     .navegacao-principal {
-        order: 3;
-        flex-basis: 100%;
         margin-left: 0;
+        flex-basis: 100%;
     }
 
-    .sessao-atual {
+    .btn-signin {
+        position: static;
         margin-left: auto;
     }
 
-    .sessao-email {
-        max-width: 42vw;
-    }
-
-    button,
-    .btn-signin {
-        padding: 10px 16px;
+    main {
+        margin-top: 0;
     }
 }
